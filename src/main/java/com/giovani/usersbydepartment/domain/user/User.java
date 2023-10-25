@@ -27,4 +27,5 @@ public class User implements Serializable {
     @Column(nullable = false,unique = true,length = 100)
     private String email;
     private LocalDateTime registrationDate;
+    private LocalDateTime updateDate;
 }

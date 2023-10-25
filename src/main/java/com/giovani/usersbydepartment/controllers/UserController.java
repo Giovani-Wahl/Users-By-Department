@@ -34,6 +34,7 @@ public class UserController {
         if (userOptional.isPresent()){
             user.setId(userOptional.get().getId());
             user.setRegistrationDate(userOptional.get().getRegistrationDate());
+            user.setUpdateDate(LocalDateTime.now(ZoneId.of("UTC")));
             return ResponseEntity.status(HttpStatus.OK).body(userService.save(user));
         }
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not Found.");

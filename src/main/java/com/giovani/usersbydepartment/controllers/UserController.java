@@ -28,6 +28,16 @@ public class UserController {
         user.setRegistrationDate(LocalDateTime.now(ZoneId.of("UTC")));
         return ResponseEntity.status(HttpStatus.CREATED).body(userService.save(user));
     }
+    @PutMapping("/{id}")
+    public ResponseEntity<Object> updateUser(@PathVariable (value = "id")UUID id, @RequestBody User user){
+        Optional<User> userOptional = userService.findById(id);
+        if (userOptional.isPresent()){
+            user.setId(userOptional.get().getId());
+            user.setRegistrationDate(userOptional.get().getRegistrationDate());
+            return ResponseEntity.status(HttpStatus.OK).body(userService.save(user));
+        }
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not Found.");
+    }
     @DeleteMapping("/{id}")
     public ResponseEntity<Object> deleteUser(@PathVariable (value = "id")UUID id){
         Optional<User> userOptional = userService.findById(id);

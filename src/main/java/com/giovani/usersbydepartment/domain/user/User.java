@@ -1,5 +1,6 @@
 package com.giovani.usersbydepartment.domain.user;
 
+import com.giovani.usersbydepartment.domain.department.Department;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -26,6 +27,11 @@ public class User implements Serializable {
     private String name;
     @Column(nullable = false,unique = true,length = 100)
     private String email;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "department_id")
+    private Department department;
+
     private LocalDateTime registrationDate;
     private LocalDateTime updateDate;
 }

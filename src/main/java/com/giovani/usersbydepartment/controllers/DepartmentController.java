@@ -2,6 +2,7 @@ package com.giovani.usersbydepartment.controllers;
 
 import com.giovani.usersbydepartment.domain.department.Department;
 import com.giovani.usersbydepartment.domain.department.DepartmentService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -17,12 +18,14 @@ import java.util.UUID;
 @RequestMapping("/department")
 public class DepartmentController {
     private final DepartmentService departmentService;
-
     public DepartmentController(DepartmentService departmentService) {
         this.departmentService = departmentService;
     }
     @PostMapping
     public ResponseEntity<Object> saveDepartment(@RequestBody Department department){
+        if (departmentService.existsDepartmentByName(department.getName())){
+            return ResponseEntity.status(HttpStatus.CONFLICT).body("Conflict: Department already exists.");
+        }
         return ResponseEntity.status(HttpStatus.CREATED).body(departmentService.save(department));
     }
     @PutMapping("/{id}")

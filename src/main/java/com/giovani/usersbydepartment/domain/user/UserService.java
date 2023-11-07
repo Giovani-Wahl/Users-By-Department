@@ -1,7 +1,6 @@
 package com.giovani.usersbydepartment.domain.user;
 
 import jakarta.transaction.Transactional;
-import org.springframework.beans.BeanUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -29,5 +28,8 @@ public class UserService {
    }
     public Optional<User> findById(UUID id) {
         return userRepository.findById(id);
+    }
+    public boolean existsUserByName(String name){
+        return userRepository.existsUserByName(name);
     }
 }

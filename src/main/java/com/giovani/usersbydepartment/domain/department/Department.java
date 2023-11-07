@@ -26,6 +26,14 @@ public class Department implements Serializable {
     private UUID id;
     @Column(nullable = false,unique = true,length = 30)
     private String name;
-    @OneToMany(mappedBy = "department")
+
+    @OneToMany(mappedBy = "department",cascade = CascadeType.ALL)
     private Set<User> userDepartment = new HashSet<>();
+
+    public void addUserDep(User user){
+        userDepartment.add(user);
+    }
+    public void removeUserDep(User user){
+        userDepartment.remove(user);
+    }
 }

@@ -25,6 +25,9 @@ public class UserController {
     }
     @PostMapping
     public ResponseEntity<Object> saveUser(@RequestBody User user){
+        if (userService.existsUserByName(user.getName())){
+            return ResponseEntity.status(HttpStatus.CONFLICT).body("Conflict: User name already registered.");
+        }
         user.setRegistrationDate(LocalDateTime.now(ZoneId.of("UTC")));
         return ResponseEntity.status(HttpStatus.CREATED).body(userService.save(user));
     }

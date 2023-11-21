@@ -16,4 +16,12 @@ public class UserRequestDto {
     private String email;
     private LocalDateTime registrationDate;
     private LocalDateTime updateDate;
+
+    public UserRequestDto(User entity) {
+        id = entity.getId();
+        name = entity.getName();
+        email = entity.getEmail();
+        registrationDate = entity.getRegistrationDate();
+        updateDate = entity.getUpdateDate();
+    }
 }
